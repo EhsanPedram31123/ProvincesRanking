@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>رنکینگ لحظه‌ای استان‌های ایران</title>
+    <style>
+        body {
+            font-family: 'B Nazanin', Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 700px;
+            hight: 1000px;
+            text-align: center;
+        }
+        h2 { 
+            color: #2c3e50; 
+            margin-bottom: 30px; 
+            font-size: 24px;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+        th { 
+            background-color: #3498db; 
+            color: white; 
+            position: sticky;
+            top: 0;
+        }
+        tr:hover { background-color: #f9f9f9; }
+        .rank-1 { background-color: #fff9c4 !important; font-weight: bold; color: #d4af37; }
+        .rank-2 { background-color: #f5f5f5 !important; }
+        .rank-3 { background-color: #fff3e0 !important; }
+        .bonus-text {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🏆 جدول رتبه‌بندی لحظه‌ای بازرگانی استان‌ها</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ردیف</th>
+                <th>نام استان</th>
+                <th>درصد تحقق</th>
+                <th>کارانه فصل پاییز</th>
+            </tr>
+        </thead>
+        <tbody id="ranking-body">
+            <!-- داده‌ها توسط جاوااسکریپت پر می‌شود -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // لیست کامل ۳۱ استان ایران با امتیازات فرضی
+    const provincesData = [
+        { name: "آذربایجان شرقی", score: 82 },
+        { name: "آذربایجان غربی", score: 75 },
+        { name: "اردبیل", score: 68 },
+        { name: "اصفهان", score: 94 },
+        { name: "البرز", score: 88 },
+        { name: "ایلام", score: 62 },
+        { name: "بوشهر", score: 71 },
+        { name: "لرستان", score: 60 },
+        { name: "تهران", score: 15 },
+        { name: "چهارمحال و بختیاری", score: 65 },
+        { name: "خراسان جنوبی", score: 67 },
+        { name: "خراسان رضوی", score: 96 },
+        { name: "خراسان شمالی", score: 63 },
+        { name: "خوزستان", score: 81 },
+        { name: "زنجان", score: 70 },
+        { name: "سمنان", score: 77 },
+        { name: "سیستان و بلوچستان", score: 59 },
+        { name: "فارس", score: 15 },
+        { name: "قزوین", score: 74 },
+        { name: "قم", score: 79 },
+        { name: "کردستان", score: 61 },
+        { name: "کرمان", score: 83 },
+        { name: "کرمانشاه", score: 10 },
+        { name: "کهگیلویه و بویراحمد", score: 58 },
+        { name: "گیلان", score: 87 },
+        { name: "گلستان", score: 76 },
+        { name: "مازندران", score: 89 },
+	{ name: "مرکزی", score: 80 },
+        { name: "یزد", score: 85 },
+        { name: "همدان", score: 69 },
+        { name: "هرمزگان", score: 73 }
+    ];
+
+    // سورت کردن بر اساس امتیاز (نزولی)
+    provincesData.sort((a, b) => b.score - a.score);
+
+    const tableBody = document.getElementById('ranking-body');
+
+    provincesData.forEach((province, index) => {
+        const row = document.createElement('tr');
+
+        // استایل برای ۳ رتبه اول
+        if (index === 0) row.classList.add('rank-1');
+        else if (index === 1) row.classList.add('rank-2');
+        else if (index === 2) row.classList.add('rank-3');
+
+
+	// تعریف متغیر پاداش؛ در ابتدا خالی است
+	let reward = ""; 
+
+	// اگر رتبه اول بود (index 0)
+	if (index === 0) {
+	    reward = "20 میلیون تومان";
+	} 
+	// اگر رتبه دوم بود (index 1)
+	else if (index === 1) {
+	    reward = "15 میلیون تومان";
+	} 
+	// اگر رتبه سوم بود (index 2)
+	else if (index === 2) {
+	    reward = "15 میلیون تومان";
+	}
+
+	row.innerHTML = `
+	    <td>${index + 1}</td>
+	    <td>${province.name}</td>
+	    <td>${province.score}</td>
+	    <td class="bonus-text">${reward}</td>
+	`;
+	tableBody.appendChild(row);
+
+    });
+</script>
+
+</body>
+</html>
